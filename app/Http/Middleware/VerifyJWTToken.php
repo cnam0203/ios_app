@@ -6,6 +6,8 @@ use Closure;
 use Exception;
 use App\Models\User;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use \Tymon\JWTAuth\Exceptions\TokenInvalidException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use JWTAuth;
 
@@ -23,25 +25,23 @@ class VerifyJWTToken
         try {
             $user = JWTAuth::parseToken()->authenticate();
             $request['user'] = $user;
+
+            return $next($request);
         } catch (Exception $e) {
-            error_log($e->getMessage());
-            if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Token expired',
-                ]);
-            } else if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Token invalid',
-                ]);
+            $message = '';
+
+            if ($e instanceof TokenExpiredException) {
+                $message = 'Token expired';
+            } else if ($e instanceof TokenInvalidException) {
+                $message = 'Token invalid';
             } else {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Token is required'
-                ]);
+                $message = 'Token is required';
             }
+            
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage(),
+            ]);
         }
-        return $next($request);
     }
 }
