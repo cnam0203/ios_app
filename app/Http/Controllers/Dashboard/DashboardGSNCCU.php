@@ -38,6 +38,7 @@ class DashboardGSNCCU extends Dashboard2018 {
 				'data' => [
 					'pageTitle' => $this->pagetitle,
 					'widgets' => $this->jsonWidgets(),
+					'screenType' => 'svg',
 				]
 			]);
 	}

@@ -117,7 +117,7 @@ class DashboardGSN extends Dashboard2018 {
 		
 		// configured list
 		$data = $this->_prepairData();
-		$this->showWidgets($data, 'RevenueTotal', $maxWidgetPerRow, $currentRow, $currentCol);
+		$this->showWidgets($data, 'RevenueTotal', $maxWidgetPerRow, $currentRow, $currentCol); 
 		
 		return $data;
 	}

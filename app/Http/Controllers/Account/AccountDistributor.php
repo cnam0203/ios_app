@@ -103,7 +103,7 @@ class AccountDistributor extends CommonFunction {
 					group by ReportDate, DistributorGroup
 					order by ReportDate";
 		$data = $this->getDataSQL($sql);		
-		$pivot = $this->pivotdata_withColNamePrefix_new($data, $this->sortType, $this->sortOrder, $this->numberItemSelect);				
+		$pivot = $this->pivotdata_withColNamePrefix_new($data, $this->sortType, $this->sortOrder, $this->numberItemSelect);			
 		$visibleItems = $this->getBiggestFields($pivot, 4);
 		
 		$options = ['type' => 'line',

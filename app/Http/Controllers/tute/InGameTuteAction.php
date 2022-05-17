@@ -16,15 +16,25 @@ class InGameTuteAction extends InGameTuteFunction
 
         $this->listChart = array(
             'chartNumberInteractByItem'=>$this->chartNumberInteractByItem(),
+            'gridNumberInteractByItem'=> $this->gridNumberInteractByItem('tableid_gridNumberInteractByItem'),
             'chartNumberSendAddFriend'=>$this->chartNumberActionByType(2),
+            'gridNumberSendAddFriend'=>$this->gridNumberActionByType('tableid_gridNumberSendAddFriend', 2),
             'chartNumberAcceptFriend'=>$this->chartNumberActionByType(3),
+            'gridNumberAcceptFriend'=> $this->gridNumberActionByType('tableid_gridNumberAcceptFriend', 3),
             'chartNumberInviteFriend'=>$this->chartNumberActionByType(4),
+            'gridNumberInviteFriend'=> $this->gridNumberActionByType('tableid_gridNumberInviteFriend', 4),
             'chartNumberAcceptFriendInvite'=>$this->chartNumberActionByType(5),
+            'gridNumberAcceptFriendInvite'=> $this->gridNumberActionByType('tableid_gridNumberAcceptFriendInvite', 5),
             'chartNumberShowInvite'=>$this->chartNumberActionByType(6),
+            'gridNumberShowInvite'=> $this->gridNumberActionByType('tableid_gridNumberShowInvite', 6),
             'chartNumberAccept'=>$this->chartNumberActionByType(7),
+            'gridNumberAccept'=> $this->gridNumberActionByType('tableid_gridNumberAccept', 7),
             'chartNumberMiniGame'=>$this->chartNumberActionByType(8),
+            'gridNumberMiniGame'=> $this->gridNumberActionByType('tableid_gridNumberMiniGame', 8),
             'chartNumberPlayNow'=>$this->chartNumberActionByType(9),
+            'gridNumberPlayNow'=> $this->gridNumberActionByType('tableid_gridNumberPlayNow', 9),
             'chartNumberTapByChannel'=>$this->chartNumberTapByChannel(),
+            'gridNumberTapByChannel'=>$this->gridNumberTapByChannel('tableid_gridNumberTapByChannel')
         );
 
         // $this->listChartId=['chartNumberInteractByItem', 'chartNumberSendAddFriend', 'chartNumberAcceptFriend', 'chartNumberInviteFriend',

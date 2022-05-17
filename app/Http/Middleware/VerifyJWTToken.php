@@ -10,6 +10,8 @@ use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use \Tymon\JWTAuth\Exceptions\TokenInvalidException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use JWTAuth;
+use Illuminate\Support\Facades\Crypt;
+
 
 class VerifyJWTToken
 {
@@ -23,9 +25,15 @@ class VerifyJWTToken
     public function handle($request, Closure $next)
     {
         try {
-            $user = JWTAuth::parseToken()->authenticate();
-            $request['user'] = $user;
-
+            $iv = hex2bin("0123456789abcdef0123456789abcdef");
+            $key =  hex2bin("abcdef9876543210abcdef9876543210");
+            $encryptedToken = $request->bearerToken();
+            $decryptedToken = openssl_decrypt($encryptedToken, 'AES-128-CBC', $key, OPENSSL_ZERO_PADDING, $iv);
+            $decryptedToken = trim($decryptedToken);
+            $decryptedToken = json_decode($decryptedToken, true);
+            $userToken = $decryptedToken["userToken"];
+            $user = JWTAuth::setToken($userToken)->toUser();
+            $request['user'] = json_decode(json_encode($user));
             return $next($request);
         } catch (Exception $e) {
             $message = '';
@@ -40,7 +48,7 @@ class VerifyJWTToken
             
             return response()->json([
                 'status' => false,
-                'message' => $e->getMessage(),
+                'message' => $message,
             ]);
         }
     }

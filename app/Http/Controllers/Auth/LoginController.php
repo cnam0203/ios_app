@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\AppController;
 use Illuminate\Http\Request;
 use App\User;
 use JWTAuth;
@@ -11,6 +10,14 @@ use Exception;
 
 class LoginController extends Controller
 {
+    public function getTenantId(Request $request) {
+        return response()->json([
+            'clientId' => '568d1756-4e6a-4cf2-9760-feaac979890f',
+            'tenantId' => 'd1c794fa-36c3-477d-9d10-2147a44b45ce',
+            'redirectUrl' => 'com.iosappzps://com.iosappzps/ios/callback',
+        ]);
+    }
+
     public function login(Request $request){
         /* 
         After user is authenticated with Micro account on app
@@ -53,24 +60,21 @@ class LoginController extends Controller
                 }
                 
                 else {
-                    JWTAuth::factory()->setTTL(10);
+                    JWTAuth::factory()->setTTL(60);
                     $token = JWTAuth::fromUser($user);
-                    $appController = new AppController();
-                    $menu = $appController->getMenu($user['id']);
 
                     return response()->json([
                         'status' => true,
                         'message' => 'User logged in successfully',
                         'jwtToken' => $token,
                         'userInfo' => ['name' => $user['name'], 'email' => $user['email']],
-                        'menu' => $menu,
                     ]);
                 }
             }
         } catch(Exception $e) {
             return response()->json([
                 'status' => false,
-                'message' => 'User logged in failed',
+                'message' => 'Login failed for user',
             ]);
         }
     }

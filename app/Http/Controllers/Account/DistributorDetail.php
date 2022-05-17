@@ -10,12 +10,12 @@ class DistributorDetail extends CommonFunction {
 	public function index ($type='') {
 		
 		$this->pageTitle='Distributor Detail';
-		$this->Country = $this->getCountryOfAppName($this->AppName);
-		$this->listDistributor = $this->getListDistributor($this->AppName);
-		$this->getInputDistributor();
+		// $this->Country = $this->getCountryOfAppName($this->AppName);
+		// $this->listDistributor = $this->getListDistributor($this->AppName);
+		// $this->getInputDistributor();
 		
 		// list platform
-		$listPlatform = $this->listPlatformOfTableDistributor('dailydistributor', $this->AppName, $this->selectedDistributor);
+		// $listPlatform = $this->listPlatformOfTableDistributor('dailydistributor', $this->AppName, $this->selectedDistributor);
 		// dd($listPlatform);
 		if (in_array('Android', $listPlatform))
 			$this->listChart = array_merge($this->listChart, array('chartPortalMarInstallAndroid' => $this->chartMarInstall('Android'),));

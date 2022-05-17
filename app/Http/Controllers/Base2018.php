@@ -23,8 +23,8 @@ class Base2018 extends Controller {
 		if ($AppField == '')
 			$AppField = 'AppName';
 
-		$this->username = Request::get('user')['email'];
-		
+		// $this->username = Request::get('user')['email'];
+	
 		// db connection
 		$this->pdoReportTool = DB::connection()->getPdo();		
 		$this->pdoAuthen = DB::connection('mysql_authen')->getPdo();
@@ -1174,6 +1174,8 @@ class Base2018 extends Controller {
 				$first = false;
 			}else{
 				foreach ($sumData as $ki => $vi) {
+					if (!$sumData[$ki])
+						$sumData[$ki] = "0";
 					$sumData[$ki] += $value[$ki] == "" ? "0" : $value[$ki];
 				}
 			}
@@ -1418,8 +1420,7 @@ class Base2018 extends Controller {
 		$stmt = $this->pdoReportTool->query($sql);
 		while ($row = $stmt->fetch(PDO::FETCH_ASSOC))
 		  $this->AllowCountry101[] = $row['Country'];
-	
-		$this->AllowRules101[] = $row['AppName'];
+		// $this->AllowRules101[] = $row['AppName'];
 	}
 }
 
